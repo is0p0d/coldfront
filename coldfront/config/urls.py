@@ -6,6 +6,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+from coldfront.config.env import ENV
 import coldfront.core.portal.views as portal_views
 
 admin.site.site_header = 'ColdFront Administration'
@@ -36,3 +37,8 @@ if 'mozilla_django_oidc' in settings.INSTALLED_APPS:
 
 if 'django_su.backends.SuBackend' in settings.AUTHENTICATION_BACKENDS:
     urlpatterns.append(path('su/', include('django_su.urls')))
+
+if 'django_saml2_auth' in settings.INSTALLED_APPS:
+    import django_saml2_auth.views
+    urlpatterns.append(path('saml2_auth/', include('django_saml2_auth.urls')))
+    urlpatterns.append(path('saml2_auth/', ENV.str(YAML_LOGIN_LINK), name="yaml_login_link"))
