@@ -41,6 +41,9 @@ local_configs = [
 
     # Local settings relative to coldfront project root
     PROJECT_ROOT('local_settings.py')
+
+    #for saml2_auth
+    SAML2_AUTH = SAML2_AUTH
 ]
 
 if ENV.str('COLDFRONT_CONFIG', default='') != '':

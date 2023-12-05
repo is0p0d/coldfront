@@ -16,7 +16,7 @@ SAML2_AUTH = {
     'METADATA_AUTO_CONF_URL': ENV.str('METADATA_AUTO_CONF_URL')
     'METADATA_LOCAL_FILE_PATH': ENV.str('METADATA_LOCAL_FILE_PATH')
     #--------------------------------------------------------------------------
-    # Optional Settings
+    # Optional Settings available at https://github.com/fangli/django-saml2-auth
     #--------------------------------------------------------------------------
 }
 
