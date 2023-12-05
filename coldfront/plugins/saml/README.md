@@ -8,28 +8,31 @@ This plugin uses [django-saml2-auth](https://github.com/fangli/django-saml2-auth
 
 ## Requirements
 
-- pip install django-saml2-auth
+The following package is required:
+```
+pip install django-saml2-auth
+```
 
 ## Usage
 
 The following environment variables are configurable:
 
-```
-PLUGIN_AUTH_SAML
-YAML_LOGIN_LINK
-METADATA_AUTO_CONF_URL
-METADATA_LOCAL_FILE_PATH
-```
+| Variable                 | Default | 
+| ------------------------ | ------- |
+| PLUGIN_AUTH_SAML         | FALSE   |
+| YAML_LOGIN_LINK          | N/A     |
+| METADATA_AUTO_CONF_URL   | N/A     |
+| METADATA_LOCAL_FILE_PATH | N/A     |
 
 ### files edited:
 
-CREATE: coldfront/plugins/saml/README.md
-CREATE: coldfront/config/plugins/saml.py
-MODIFY: coldfront/config/settings.py
-MODIFY: coldfront/config/urls.py
-MODIFY: coldfront/core/user/templates/user/login.html
+-CREATE: coldfront/plugins/saml/README.md
+-CREATE: coldfront/config/plugins/saml.py
+-MODIFY: coldfront/config/settings.py
+-MODIFY: coldfront/config/urls.py
+-MODIFY: coldfront/core/user/templates/user/login.html
 
 ### TODO:
 
-finish settings integration in saml.py
--tentatively done
+-finish settings integration in saml.py
+--tentatively done
