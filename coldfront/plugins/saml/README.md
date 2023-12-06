@@ -21,7 +21,7 @@ The following environment variables are configurable:
 | Variable                 | Default | 
 | ------------------------ | ------- |
 | PLUGIN_AUTH_SAML         | FALSE   |
-| YAML_LOGIN_LINK          | N/A     |
+| SAML_LOGIN_LINK          | N/A     |
 | METADATA_AUTO_CONF_URL   | N/A     |
 | METADATA_LOCAL_FILE_PATH | N/A     |
 
