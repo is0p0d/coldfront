@@ -18,7 +18,8 @@ pip install django-saml2-auth
 
 The following environment variables are configurable: 
 
-> [!IMPORTANT] It should be assumed that any element with 'N/A' in the default column is required.
+> [!IMPORTANT] 
+> It should be assumed that any element with 'N/A' in the default column is required.
 
 | Variable                 | Type | Default | Description |
 | ------------------------ | ---- | ------- | ----------- |
