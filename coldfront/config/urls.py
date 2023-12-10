@@ -41,4 +41,3 @@ if 'django_su.backends.SuBackend' in settings.AUTHENTICATION_BACKENDS:
 if 'django_saml2_auth' in settings.INSTALLED_APPS:
     import django_saml2_auth.views
     urlpatterns.append(path('saml2_auth/', include('django_saml2_auth.urls')))
-    urlpatterns.append(url(ENV.str('SAML_LOGIN_LINK')))

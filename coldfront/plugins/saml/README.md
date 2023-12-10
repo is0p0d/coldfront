@@ -4,8 +4,9 @@ ColdFront django plugin for providing SAML2 authentication support to facilitate
 
 ## Design
 
-This plugin uses [django-saml2-auth](https://github.com/fangli/django-saml2-auth), and allows the user to define a custom login link that will appear as a button on the ColdFront login page.
+This plugin uses [django-saml2-auth](https://github.com/fangli/django-saml2-auth), allowing the user to configure the plugin to fit their SSO provider through the normal ColdFront environment file. This allows users to log in to coldfront through SAML2 SSO via a custom button on the login page.
 
+Also in this plugin is a custom post-login trigger that will parse a user defined set of IDP groups and automatically assign PI in ColdFront if a user is in said defined groups.
 ## Requirements
 
 The following package is required:
@@ -33,14 +34,21 @@ The following environment variables are configurable:
 | SAML_NEWUSER_ACTIVE      | bool | True    | Sets the active status of a new user |
 | SAML_NEWUSER_STAFF       | bool | False   | Sets the staff status of a new user |
 | SAML_NEWUSER_SUPER       | bool | False   | Sets the superuser status of a new user |
+| SAML_NEWUSER_PI          | list | []      | List of IDP groups that will mark a user as a PI if assigned |
 | SAML_ATTR_EMAIL          | str  | N/A     | E-Mail SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_ATTR_USERNAME       | str  | N/A     | Username SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_ATTR_FNAME          | str  | N/A     | First name SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_ATTR_LNAME          | str  | N/A     | Last name SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_ENTITY_ID           | str  | N/A     | SAML2 SSO Identity Provider audience URI, ie http://your-domain/saml2_auth/acs/ |
+
+> [!WARNING]
+> Currently the SAML_LOGIN_URL env is unimplemented, instead you must replace {% url 'saml_login_link'} in login.html with your SSO login link
+
 ### files edited:
 
 - CREATE: coldfront/plugins/saml/README.md
+- CREATE: coldfront/plugins/saml/\_\_init\_\_.py
+- CREATE: coldfront/plugins/saml/pitrigger.py
 - CREATE: coldfront/config/plugins/saml.py
 - MODIFY: coldfront/config/settings.py
 - MODIFY: coldfront/config/urls.py
