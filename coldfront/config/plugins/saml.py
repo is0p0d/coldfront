@@ -1,5 +1,6 @@
 from coldfront.config.base import INSTALLED_APPS
 from coldfront.config.env import ENV
+from coldfront.plugins import saml
 from django.core.exceptions import ImproperlyConfigured
 
 #------------------------------------------------------------------------------
@@ -22,11 +23,14 @@ SAML2_AUTH = {
         'SUPERUSER_STATUS': ENV.bool('SAML_NEWUSER_SUPER', default=False),
     },
 
-    ATTRIBUTES_MAP: {
+    'ATTRIBUTES_MAP': {
         'email': ENV.str('SAML_ATTR_EMAIL'),
         'username': ENV.str('SAML_ATTR_USERNAME'),
         'first_name': ENV.str('SAML_ATTR_FNAME'),
         'last_name': ENV.str('SAML_ATTR_LNAME'),
+    },
+    'TRIGGER': {
+        'BEFORE_LOGIN': 'saml.pi_trigger'
     },
     'ENTITY_ID': ENV.str('SAML_ENTITY_ID'),
     
