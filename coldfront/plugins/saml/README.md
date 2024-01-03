@@ -39,6 +39,11 @@ The following environment variables are configurable:
 | SAML_ATTR_USERNAME       | str  | N/A     | Username SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_ATTR_FNAME          | str  | N/A     | First name SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_ATTR_LNAME          | str  | N/A     | Last name SAML2 attribute from your configuration to be mapped into ColdFront |
+| SAML_GROUPS              | bool | False   | Enables the post login trigger for detecting PI, Staff, and User status based on IDP groups |
+| SAML_GROUP_CLAIM         | str  | ''      | Attribute claim for user groups, will determine where to look for your designated IDP provider assigned groups 
+| SAML_GROUP_PI            | str  | ''      | Name of IDP group for PI's |
+| SAML_GROUP_STAFF         | str  | ''      | Name of IDP group for staff |
+| SAML_GROUP_USER          | str  | ''      | Name of IDP group for users |
 | SAML_ENTITY_ID           | str  | N/A     | SAML2 SSO Identity Provider audience URI, ie http://your-domain/saml2_auth/acs/ |
 
 > [!WARNING]
@@ -48,7 +53,7 @@ The following environment variables are configurable:
 
 - CREATE: coldfront/plugins/saml/README.md
 - CREATE: coldfront/plugins/saml/\_\_init\_\_.py
-- CREATE: coldfront/plugins/saml/pitrigger.py
+- CREATE: coldfront/plugins/saml/pi_trigger.py
 - CREATE: coldfront/config/plugins/saml.py
 - MODIFY: coldfront/config/settings.py
 - MODIFY: coldfront/config/urls.py
