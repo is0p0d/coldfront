@@ -30,7 +30,7 @@ SAML2_AUTH = {
         'last_name': ENV.str('SAML_ATTR_LNAME'),
     },
     'TRIGGER': {
-        'BEFORE_LOGIN': 'saml.pi_trigger'
+        'BEFORE_LOGIN': 'coldfront.plugins.saml.pi_trigger.piCheck', # Dont change unless you want to write your own trigger
     },
     'ENTITY_ID': ENV.str('SAML_ENTITY_ID'),
     

@@ -46,6 +46,9 @@ The following environment variables are configurable:
 | SAML_GROUP_USER          | str  | ''      | Name of IDP group for users |
 | SAML_ENTITY_ID           | str  | N/A     | SAML2 SSO Identity Provider audience URI, ie http://your-domain/saml2_auth/acs/ |
 
+> [!IMPORTANT]
+> Every SAML_ATTR and SAML_GROUP you define MUST match the case defined in your IDP configuration.
+
 > [!WARNING]
 > Currently the SAML_LOGIN_URL env is unimplemented, instead you must replace {% url 'saml_login_link'} in login.html with your SSO login link
 
