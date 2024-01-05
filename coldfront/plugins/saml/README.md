@@ -65,3 +65,4 @@ The following environment variables are configurable:
 ### TODO:
 
 - Fix configurable login link, for now saml_login_link in login.html must be replaced by your login link
+- Write "configuration example" section of README.md
