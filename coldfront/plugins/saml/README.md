@@ -52,6 +52,10 @@ The following environment variables are configurable:
 > [!WARNING]
 > Currently the SAML_LOGIN_URL env is unimplemented, instead you must replace {% url 'saml_login_link'} in login.html with your SSO login link
 
+## IDP Configuration
+
+ 
+
 ### files edited:
 
 - CREATE: coldfront/plugins/saml/README.md
