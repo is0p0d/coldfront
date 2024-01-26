@@ -46,6 +46,7 @@ Vagrant.configure("2") do |config|
         # Grab the latest from the saml-integration branch
         wget https://github.com/is0p0d/coldfront/zipball/saml-integration
         unzip saml-integration
+        rm saml-integration
         cd is0p0d-coldfront-*
         pip install .
         cd ..
@@ -65,7 +66,7 @@ Vagrant.configure("2") do |config|
         cp /vagrant/services/coldfront.conf /etc/nginx/conf.d/coldfront.conf
         systemctl restart nginx.service
         systemctl enable nginx.service
-
+        reboot
         echo "To finish completion please:"
         echo "- finish configuring your coldfront.env pursuant to the plugin readme"
         echo "- replace the saml_login_link in coldfront/core/user/templates/user/login.html to your login link"

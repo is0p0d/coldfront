@@ -27,7 +27,7 @@ The following environment variables are configurable:
 | PLUGIN_AUTH_SAML         | bool | False   | Enables the plugin |
 | SAML_LOGIN_URL           | str  | N/A     | Your SSO login link to IDP initiated saml, where users will be redirected when "login with SSO" is clicked |
 | SAML_METADATA_AUTO       | str  | N/A     | Auto SAML2 metadata configuration URL |
-| SAML_METADATA_LOCAL      | str  | ''      | Local SML2 metadata configuration |
+| SAML_METADATA_LOCAL      | str  | ''      | NOT ENABLED, SEE NOTE BELOW - Local SML2 metadata configuration |
 | SAML_NEXT_URL            | str  | '/'     | Custom redirect after a user has logged in |
 | SAML_CREATEUSER          | str  | 'TRUE'  | Enables SAML to create users in ColdFront. NOTE: This is a STRING with either TRUE or FALSE, not a typical bool. |
 | SAML_NEWUSER_GROUPS      | list | []      | A list of groups a user will be assigned to upon creation. |
@@ -39,7 +39,7 @@ The following environment variables are configurable:
 | SAML_ATTR_FNAME          | str  | N/A     | First name SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_ATTR_LNAME          | str  | N/A     | Last name SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_GROUPS              | bool | False   | Enables the post login trigger for detecting PI, Staff, and User status based on IDP groups |
-| SAML_GROUP_CLAIM         | str  | ''      | Attribute claim for user groups, will determine where to look for your designated IDP provider assigned groups 
+| SAML_GROUP_CLAIM         | str  | ''      | Attribute claim for user groups, similar to other SAML_ATTR, will determine where to look for your designated IDP provider assigned groups |
 | SAML_GROUP_PI            | str  | ''      | Name of IDP group for PI's |
 | SAML_GROUP_STAFF         | str  | ''      | Name of IDP group for staff |
 | SAML_GROUP_USER          | str  | ''      | Name of IDP group for users |
@@ -47,6 +47,9 @@ The following environment variables are configurable:
 
 > [!IMPORTANT]
 > Every SAML_ATTR and SAML_GROUP you define MUST match the case defined in your IDP configuration.
+
+> [!WARNING]
+> SAML_METADATA_LOCAL is disabled by default, if you need a static metadata file instead of an IDP provided dynamic metadata file, you'll have to modify the saml.py source file **in your venv.** You can achieve this by simply uncommenting the line having to do with SAML_METADATA_LOCAL.
 
 > [!WARNING]
 > Currently the SAML_LOGIN_URL env is unimplemented, instead you must replace {% url 'saml_login_link'} in login.html with your SSO login link
