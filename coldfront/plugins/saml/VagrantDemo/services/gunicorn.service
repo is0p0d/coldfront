@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve Coldfront
+After=syslog.target network.target mariadb.service
+
+[Service]
+User=coldfront
+Group=nginx
+WorkingDirectory=/srv/coldfront/
+Environment="PATH=/srv/coldfront/venv/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"
+ExecStart=/srv/coldfront/venv/bin/gunicorn --error-logfile /srv/coldfront/gunierr.log --capture-output --workers 3 --bind unix:coldfront.sock -m 007 coldfront.config.wsgi
+
+[Install]
+WantedBy=multi-user.target

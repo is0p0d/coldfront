@@ -1,0 +1,74 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "bento/rockylinux-8"
+    config.vm.hostname = 'vagr-coldfront'
+    # config.vm.network "forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
+    config.vm.network "private_network", ip: "172.16.0.2"
+    config.vm.provision "shell", inline: <<-SHELL
+        # We disable these safety measures for ease of install, as this is a demo.
+        systemctl stop firewalld
+        setenforce 0
+        perl -pi.bak -e "s/SELINUX=enforcing/SELINUX=permissive/g" /etc/selinux/config
+        yum install -y gcc
+        yum install -y python39 python39-libs python39-devel
+        yum install -y wget xmlsec1 xmlsec1-openssl sqlite-devel sqlite-libs dnf-plugins-core fontawesome-fonts
+        yum install -y nginx redis
+        yum-config-manager --set-enabled powertools
+        # yum install http://repos.openhpc.community/OpenHPC/2/EL_8/x86_64/ohpc-release-2-1.el8.x86_64.rpm
+        # yum install -y ohpc-slurm-server
+        # cp /vagrant/slurm.conf /etc/slurm/slurm.conf
+        # systemctl enable slurmctld
+        useradd --system -m coldfront
+        mkdir /srv/coldfront
+        mkdir /etc/coldfront
+        cp /vagrant/coldfront.env /etc/coldfront/coldfront.env
+        chmod 640 /etc/coldfront/coldfront.env
+        chgrp nginx /etc/coldfront/coldfront.env
+
+        cd /srv/coldfront
+        
+        # Create a directory for and generate a self signs ssl cert for nginx
+        mkdir tls/
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./tls/coldfront.key -out ./tls/coldfront.crt \
+        -subj "/C=US/ST=TN/L=locality/O=ColdFront/OU=ColdFront/CN=vagr-coldfront"
+        python3 -mvenv venv
+        # Enter venv and setup coldfront
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install wheel
+        pip install mozilla-django-oidc
+        pip install django-saml2-auth
+        pip install pysqlite3 
+        pip install gunicorn
+        perl -pi.bak -e "s/REPLACE_THIS_KEY/$(python3 -c 'import secrets; print(secrets.token_urlsafe())')/g" /etc/coldfront/coldfront.env
+        # Grab the latest from the saml-integration branch
+        wget https://github.com/is0p0d/coldfront/zipball/saml-integration
+        unzip saml-integration
+        cd is0p0d-coldfront-*
+        pip install .
+        cd ..
+        rm -rf is0p0d-coldfront-*
+        chown -R coldfront.coldfront /srv/coldfront
+        chown -R coldfront.nginx /etc/coldfront
+        coldfront initial_setup --force_overwrite
+        coldfront collectstatic --noinput
+        chown -R coldfront.nginx /srv/coldfront
+
+        # Enable all the services needed for generating the website
+        systemctl enable redis
+        install -m 644 /vagrant/services/gunicorn.service /etc/systemd/system/gunicorn.service
+        systemctl enable --now gunicorn.service
+        install -m 644 /vagrant/services/coldfrontq.service /etc/systemd/system/coldfrontq.service
+        systemctl enable --now coldfrontq.service
+        cp /vagrant/services/coldfront.conf /etc/nginx/conf.d/coldfront.conf
+        systemctl restart nginx.service
+        systemctl enable nginx.service
+
+        echo "To finish completion please:"
+        echo "- finish configuring your coldfront.env pursuant to the plugin readme"
+        echo "- replace the saml_login_link in coldfront/core/user/templates/user/login.html to your login link"
+        echo "- optionally, enter into the coldfront venv and create a superuser"
+    SHELL
+end

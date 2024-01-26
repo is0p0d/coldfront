@@ -34,7 +34,6 @@ The following environment variables are configurable:
 | SAML_NEWUSER_ACTIVE      | bool | True    | Sets the active status of a new user |
 | SAML_NEWUSER_STAFF       | bool | False   | Sets the staff status of a new user |
 | SAML_NEWUSER_SUPER       | bool | False   | Sets the superuser status of a new user |
-| SAML_NEWUSER_PI          | list | []      | List of IDP groups that will mark a user as a PI if assigned |
 | SAML_ATTR_EMAIL          | str  | N/A     | E-Mail SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_ATTR_USERNAME       | str  | N/A     | Username SAML2 attribute from your configuration to be mapped into ColdFront |
 | SAML_ATTR_FNAME          | str  | N/A     | First name SAML2 attribute from your configuration to be mapped into ColdFront |

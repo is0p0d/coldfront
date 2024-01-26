@@ -1,0 +1,13 @@
+[Unit]
+Description=DjangoQ instance to run Coldfront scheduled tasks
+After=syslog.target network.target mariadb.service gunicorn.service
+
+[Service]
+User=coldfront
+Group=nginx
+WorkingDirectory=/srv/coldfront
+Environment="PATH=/srv/coldfront/venv/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin"
+ExecStart=/srv/coldfront/venv/bin/coldfront qcluster
+
+[Install]
+WantedBy=multi-user.target

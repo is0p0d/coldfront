@@ -12,9 +12,6 @@ def piCheck(user_identity):
         
         cf_user = User.objects.get(username=user_name)
 
-        # if user_identity is in ENV.pi_groups
-        # get UserProfile from coldfront
-        # set is_pi true
         if ENV.str('SAML_GROUP_PI') in user_groups:
             cf_user.userprofile.is_pi = True
             cf_user.save()
