@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
         useradd --system -m coldfront
         mkdir /srv/coldfront
         mkdir /etc/coldfront
-        cp /vagrant/coldfront.env /etc/coldfront/coldfront.env
+        cp /vagrant/services/coldfront.env /etc/coldfront/coldfront.env
         chmod 640 /etc/coldfront/coldfront.env
         chgrp nginx /etc/coldfront/coldfront.env
 
