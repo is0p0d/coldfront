@@ -61,14 +61,11 @@ This section covers the basic setup required in configuring groups and attribute
 Below are the minimal necessary ENV variables and instructions on where to find / what to do with them. In Entra, most of these variables will be sourced from a single page, the "SAML-based Sign-on" of your application page.
 
 ![screenshot of an example SAML-based Sign-on page](https://github.com/is0p0d/coldfront/blob/saml-integration/coldfront/plugins/saml/docImgs/saml_ss.png)
-saml_ss.png image
 
 #### SAML_METADATA_AUTO
 This is the one SAML variable which every IDP treats differently, and may require some Googling / document surfing to figure out where you'll find your "autoconfiguration metadata file." For Entra ID, the link can be found under the "SAML Certificates" box.
 
 ![screenshot of where to find the autoconf metadata link](https://github.com/is0p0d/coldfront/blob/saml-integration/coldfront/plugins/saml/docImgs/metadata_ss.png)
-
-metadata_ss.png image
 
 Copy the "App Federtation Metadata Url" and set SAML_METADATA_AUTO with it.
 
@@ -76,7 +73,6 @@ Copy the "App Federtation Metadata Url" and set SAML_METADATA_AUTO with it.
 The ENV variables for email - `SAML_ATTR_EMAIL`, username - `SAML_ATTR_USERNAME`, given name - `SAML_ATTR_FNAME`, surname - `SAML_ATTR_LNAME`, and groups (if enabled) - `SAML_ATTR_GROUPS` are all strings that are configurable in your IDP. In Entre ID, we have it set up as follows:
 
 ![screenshot of an example set of claims](https://github.com/is0p0d/coldfront/blob/saml-integration/coldfront/plugins/saml/docImgs/claims_ss.png)
-claims_ss.png image
 
 This page can be found under the "SAML-based Sign-on" tab by clicking on the Edit button in the "Attributes & Claims" box in your app administration page. You'll likely have to edit your "Additional claims" to pass the necessary attributes.
 > [!IMPORTANT]
@@ -93,14 +89,12 @@ These ENV variables set which IDP groups are automatically granted special prive
 You may have to configure your group claim in your IDP to send unhashed names of a user's given groups. In Entra, `sAMAccountName` seems to work best for us, seen here:
 
 ![screenshot of group claim configuration](https://github.com/is0p0d/coldfront/blob/saml-integration/coldfront/plugins/saml/docImgs/group_ss.png)
-group_ss.png image
 
 #### SAML_ENTITY_ID
 
 This is something you'll have to set both in this plugin, and in your IDP. We recommended just using the URL of your ColdFront instance, as seen here:
 
 ![screenshot of entity id location](https://github.com/is0p0d/coldfront/blob/saml-integration/coldfront/plugins/saml/docImgs/entity_ss.png)
-entity_ss.png image
 
 It's important that both of these match exactly - else the SSO reply will fail out.
 
@@ -118,4 +112,3 @@ It's important that both of these match exactly - else the SSO reply will fail o
 ### TODO:
 
 - Fix configurable login link, for now saml_login_link in login.html must be replaced by your login link
-- Write "configuration example" section of README.md
