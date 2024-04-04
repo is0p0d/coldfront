@@ -27,4 +27,7 @@
 - Steve Anthony
 - Jim Culbert
 - Alex Tucker
-
+- Claire Peters
+- Cecilia Lau
+- Ria Gupta
+- Shreyas Sridhar
